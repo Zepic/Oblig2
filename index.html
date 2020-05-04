@@ -15,29 +15,31 @@
         var contentDiv = document.getElementById('content');
     
         // model
-        let numbers = [12, 6, 4, 10, 11];
+        let numbers = [1,2,3,4, 5,6, 7, 8, 9, 10];
         let currentPole = null
     
         // view
         show();
         function show() {
-            let isPoleSelected = currentPole != null;
+            let btnDisable = "";
             let svgInnerHtml = '';
-            if (currentPole == null) currentPole = "Ingen";
+            if (currentPole == null) currentPole = "ingen";
+            if (currentPole == "ingen") btnDisable = "disabled";
+            else btnDisable = "";
             for (let i = 0; i < numbers.length; i++) {
                 svgInnerHtml += createBar(numbers[i], i + 1);
             }
             contentDiv.innerHTML = `
-                <svg  id="chart" width="500" viewBox="0 0 60 60">
+                <svg  id="chart" width="500" viewBox="0 -40 150 100">
                     ${svgInnerHtml} 
                 </svg><br/>
                 Valgt stolpe: <i>${currentPole}</i>
                 <br />
                 Verdi:
-                <input type="number" min="1" max="10" "/>
+                <input type="number" min="1" max="10" oninput="poleValue(this.value)"/>
                 <button onclick="addPole()">Legg til stolpe</button>
-                <button disabled>Endre valgt stolpe</button><br />
-                <button disabled>Fjerne valgt stolpe</button>
+                <button ${btnDisable} onclick="changeValueOfPole()">Endre valgt stolpe</button><br />
+                <button ${btnDisable} onclick="removePole(${currentPole})">Fjerne valgt stolpe</button>
                 `;
         }
     
@@ -46,11 +48,11 @@
             const spacing = 2;
             let selected = barNo;
             let x = (barNo - 1) * (width + spacing);
-            let height = number * 5;
+            let height = number * 10;
             let y = 60 - height;
             let border = ""
-            if (barNo == currentPole) border = "black";
             let color = calcColor(1, 10, barNo);
+            if (barNo == currentPole) border = "black";
             return `<rect onclick='isSelected(${selected})' width="${width}" height="${height}"
                                 x="${x}" y="${y}" fill="${color}" stroke=${border} stroke-width="0.7"></rect>`;
         }

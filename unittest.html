@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>QUnit Example</title>
+  <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.9.2.css">
+  <script src="https://code.jquery.com/qunit/qunit-2.9.2.js"></script>
+  <script src="controller.js"></script>
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script>
+    //dummy function
+    function show(){}
+
+    //model
+    let numbers = [];
+    let currentPole;
+
+    QUnit.test("Select a pole", function( assert ){
+    currentPole = 3
+    isSelected(2);
+    assert.equal(currentPole, 2);
+  });
+
+  QUnit.test("Deselect a pole", function( assert ){
+    currentPole = 2
+    isSelected(2);
+    assert.equal(currentPole, null);
+  });
+ 
+  QUnit.test("Remove a pole", function( assert ){
+    numbers[1,8,9,10]
+    const actual = removePole(1)
+    const expected = numbers[8,9,10]
+    assert.equal(actual, expected);
+  });
+
+  QUnit.test("Change a pole", function( assert ){
+    numbers[1,2,3,4]
+    currentPole = 2
+    userValue = 5
+    const actual = changeValueOfPole();
+    const expected = numbers[1,5,3,4];
+
+    assert.equal(actual, expected);
+  });
+
+  QUnit.test("Add a pole", function( assert ){
+    numbers[1,2]
+    userValue = 5
+    const actual = addPole();
+    const expected = numbers[1,2,5];
+    assert.equal(actual, expected);
+  });
+
+</script>
+
+</body>
+</html>
