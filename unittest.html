@@ -18,42 +18,56 @@
     //model
     let numbers = [];
     let currentPole;
+    let errorMessage;
 
     QUnit.test("Select a pole", function( assert ){
-    currentPole = 3
-    isSelected(2);
+    currentPole = 3;
+    select(2);
     assert.equal(currentPole, 2);
   });
 
   QUnit.test("Deselect a pole", function( assert ){
-    currentPole = 2
-    isSelected(2);
+    currentPole = 2;
+    select(2);
     assert.equal(currentPole, null);
   });
  
   QUnit.test("Remove a pole", function( assert ){
-    numbers[1,8,9,10]
-    const actual = removePole(1)
-    const expected = numbers[8,9,10]
-    assert.equal(actual, expected);
+    numbers = [1,8,9,10];
+    removePole(1);
+    assert.deepEqual(numbers, [8,9,10]);
   });
 
   QUnit.test("Change a pole", function( assert ){
-    numbers[1,2,3,4]
-    currentPole = 2
-    userValue = 5
-    const actual = changeValueOfPole();
-    const expected = numbers[1,5,3,4];
+    numbers = [1,2,3,4];
+    currentPole = 2;
+    userValue = 5;
+    changeValueOfPole();
+    assert.deepEqual(numbers, [1,5,3,4]);
+  });
 
-    assert.equal(actual, expected);
+  QUnit.test("Error test 1", function( assert ){
+    numbers = [1,2,3,4];
+    currentPole = 2;
+    userValue = 11;
+    changeValueOfPole();
+    assert.deepEqual(errorMessage, "The number is too high");
+  });
+
+  QUnit.test("Error test 2", function( assert ){
+    numbers = [1,2,3,4];
+    currentPole = 2;
+    userValue = null;
+    changeValueOfPole();
+    console.log(errorMessage)
+    assert.deepEqual(errorMessage, "There is no number");
   });
 
   QUnit.test("Add a pole", function( assert ){
-    numbers[1,2]
-    userValue = 5
-    const actual = addPole();
-    const expected = numbers[1,2,5];
-    assert.equal(actual, expected);
+    numbers = [1,2];
+    userValue = 5;
+    addPole();
+    assert.deepEqual(numbers, [1,2,5]);
   });
 
 </script>

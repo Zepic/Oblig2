@@ -17,6 +17,7 @@
         // model
         let numbers = [1,2,3,4, 5,6, 7, 8, 9, 10];
         let currentPole = null
+        let errorMessage ='';
     
         // view
         show();
@@ -34,6 +35,7 @@
                     ${svgInnerHtml} 
                 </svg><br/>
                 Valgt stolpe: <i>${currentPole}</i>
+                <span> ${errorMessage}</span>
                 <br />
                 Verdi:
                 <input type="number" min="1" max="10" oninput="poleValue(this.value)"/>
@@ -41,6 +43,7 @@
                 <button ${btnDisable} onclick="changeValueOfPole()">Endre valgt stolpe</button><br />
                 <button ${btnDisable} onclick="removePole(${currentPole})">Fjerne valgt stolpe</button>
                 `;
+
         }
     
         function createBar(number, barNo) {
@@ -53,7 +56,7 @@
             let border = ""
             let color = calcColor(1, 10, barNo);
             if (barNo == currentPole) border = "black";
-            return `<rect onclick='isSelected(${selected})' width="${width}" height="${height}"
+            return `<rect onclick='select(${selected})' width="${width}" height="${height}"
                                 x="${x}" y="${y}" fill="${color}" stroke=${border} stroke-width="0.7"></rect>`;
         }
     
